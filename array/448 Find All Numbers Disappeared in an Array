@@ -23,6 +23,36 @@ public class Solution
 problem1 : Line 15： should be List 
 List<Integer> ret = new ArrayList<Integer>();
 
+version 2:
+
+public class Solution 
+{
+    public List<Integer> findDisappearedNumbers(int[] nums) 
+    {
+        List<Integer> result = new List<Integer> ();
+        
+        
+        // firstly, set all the number appearring negative
+        for (int i; i < nums.length; i++)
+        {    
+             // find the index of the nums 
+             int idx = Math.abs(nums[i]) - 1;
+
+             // set the number negative
+             if (nums[i]>0)
+             {
+                 nums[i] = -nums[i];
+             }
+             nums[val] = nums[i];  // wired!
+        }
+        
+        for (int i; i < nums.length; i++)
+        {
+              
+        }
+    }
+}
+
 
 
 
