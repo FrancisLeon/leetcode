@@ -1,0 +1,27 @@
+/*
+ * create a identifier maxcount to save the MaxConsecutiveOnes
+ */  
+
+
+
+public class Solution 
+{
+    public int findMaxConsecutiveOnes(int[] nums) 
+    {
+        
+        int Max = 0;
+        int localCount = 0;
+        for (int i = 0; i<nums.length;i++)
+        {
+            // count the consecutive ones for an array
+            if (nums[i] == 1)
+            localCount++;
+            else  localCount = 0;
+            
+            // find Max
+            if (localCount > Max)
+            Max = localCount;
+        }
+        return Max;
+    }
+}
