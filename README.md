@@ -1,4 +1,4 @@
-# leetcode
+# Leetcode
 
 ## First pass
  - read others' codes in leetcode and realize them in my way
