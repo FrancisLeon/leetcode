@@ -1,0 +1,40 @@
+description: 
+Given an array of integers and an integer k, find out whether there are two distinct 
+indices i and j in the array such that nums[i] = nums[j] and the absolute difference 
+between i and j is at most k.
+
+idea: since indices are involved, the HashMap may be used.
+
+version 1:
+public class Solution 
+{
+    public boolean containsNearbyDuplicate(int[] nums, int k) 
+    {
+        // input error
+        if (nums == null|| nums.length == 0)
+        return false;
+        
+        int diff =0;
+        HashMap<Integer, Integer> map = new HashMap<>(); 
+        for (int i=0; i < nums.length; i++)
+        {
+            // insert <nums[i],i> into the map
+            map.insert(nums[i],i);
+            
+            // duplicate
+            if (map.get(nums[i]))
+            diff = Math.abs(map.get(nums[i])-i);
+            
+            if (diff <= k)
+            return true;
+        }
+        
+        return false;
+    }
+}
+problem 1: Line 22: error: cannot find symbol: method insert(int,int)
+reason: the insert() is the function of C ++, in java we use put.
+solution: Line 22: map.put(nums[i],i);
+
+problem 2: Line 25: error: incompatible types: Integer cannot be converted to boolean
+solution: 
