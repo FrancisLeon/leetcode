@@ -1,0 +1,60 @@
+Given an array of integers, find if the array contains any duplicates. 
+Your function should return true if any value appears at least twice in the array, 
+and it should return false if every element is distinct.
+
+idea: Duplicate count recall me the set, in which the element is not duplicate
+
+reference: code: http://bookshadow.com/weblog/2015/08/24/leetcode-missing-number/
+           knowledge of HashSet: https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html
+
+version 1:
+public class Solution 
+{
+    public boolean containsDuplicate(int[] nums) 
+    {
+        // nums is null, return false
+        if (nums == null || nums.length == 0)
+        return false;
+        
+        // declare and create a set 
+        HashSet<Integer> set = new HashSet<Integer> ();
+        for (int i=0; i < nums.length; i++)
+        {
+            // if a element is duplicatem the set.add return false
+            if (!set.add(nums[i]))
+            return true; 
+        }
+        
+        // no element in nums is duplicate
+        return false;
+    }
+}
+
+HashSet:
+public class HashSet<E>
+extends AbstractSet<E>
+implements Set<E>, Cloneable, Serializable
+This class implements the Set interface, backed by a hash table (actually a HashMap instance). It makes no guarantees as to the iteration 
+order of the set; in particular, it does not guarantee that the order will remain constant over time. This class permits the null element. 
+
+This class offers constant time performance for the basic operations (add, remove, contains and size), assuming the hash function 
+disperses the elements properly among the buckets. Iterating over this set requires time proportional to the sum of the HashSet 
+instance's size (the number of elements) plus the "capacity" of the backing HashMap instance (the number of buckets). Thus, it's 
+very important not to set the initial capacity too high (or the load factor too low) if iteration performance is important.
+
+add
+public boolean add(E e)
+Adds the specified element to this set if it is not already present. More formally,
+adds the specified element e to this set if this set contains no element e2 
+such that (e==null ? e2==null : e.equals(e2)). If this set already contains the element, 
+the call leaves the set unchanged and returns false.
+
+Specified by: add in interface Collection<E>
+
+Specified by: add in interface Set<E>
+
+Overrides: add in class AbstractCollection<E>
+
+Parameters: e - element to be added to this set
+
+Returns: true if this set did not already contain the specified element
