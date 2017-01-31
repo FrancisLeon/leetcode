@@ -32,9 +32,116 @@ public class Solution
         return false;
     }
 }
+
 problem 1: Line 22: error: cannot find symbol: method insert(int,int)
 reason: the insert() is the function of C ++, in java we use put.
 solution: Line 22: map.put(nums[i],i);
 
 problem 2: Line 25: error: incompatible types: Integer cannot be converted to boolean
-solution: 
+solution: Line 25: map.get(nums[i]) != null
+question: in C, it's ok, but in java or C++ , why it's wrong?
+
+version 2:
+
+public class Solution 
+{
+    public boolean containsNearbyDuplicate(int[] nums, int k) 
+    {
+        // error input elimination
+        if (nums == null|| nums.length == 0)
+        return false;
+        
+        int diff =0;
+        HashMap<Integer, Integer> map = new HashMap<>(); 
+        for (int i=0; i < nums.length; i++)
+        {
+            // insert <nums[i],i> into the map
+            map.put(nums[i],i);
+            
+            // duplicate
+            if (map.get(nums[i]) != null)
+            diff = Math.abs(map.get(nums[i])-i);
+            
+            if (diff <= k)
+            return true;
+        }
+        
+        return false;
+    }
+}
+
+problem 3: Input: [1] 2; Output: true; Expected: false
+reason: Line 51: error input elimination is not critical enough
+solution: Line 51: if (nums == null|| nums.length < 2)
+
+problem 4: Input: [1,2] 2 ;Output: true Expected: false
+reason: Line 15: if statement should be included by the previous if statement
+solution: Line 20-25:
+            if (map.get(nums[i]) != null)
+            {
+               diff = Math.abs(map.get(nums[i])-i);
+               if (diff <= k)
+               return true;
+            }
+            
+problem 5: the order of the instruction is wrong:
+
+            // insert <nums[i],i> into the map
+            map.put(nums[i],i);
+            
+            // duplicate
+            if (map.get(nums[i]) != null)
+
+after insert the <k, v>, the "map.get(nums[i]) != null" is always true;
+solution: change the order of the instructions;
+conclusion: I should be very careful to the order of instructions in my code in future!!!!
+            
+version 3:
+public class Solution 
+{
+    public boolean containsNearbyDuplicate(int[] nums, int k) 
+    {
+        // input error
+        if (nums == null|| nums.length < 2)
+        return false;
+        
+        int diff =0;
+        HashMap<Integer, Integer> map = new HashMap<>(); // since indices are involved, the HashMap may be used.
+        for (int i=0; i < nums.length; i++)
+        {
+            // duplicate
+            if (map.get(nums[i]) != null)
+            {
+               diff = Math.abs(map.get(nums[i])-i);
+               if (diff <= k)
+               return true;
+            }
+            // insert <nums[i],i> into the map
+            map.put(nums[i],i);
+        }
+        return false;
+    }
+}
+
+accepted!!!!!!
+first time, I figure out by myself!
+
+Reference code: (python) http://bookshadow.com/weblog/2015/05/29/leetcode-contains-duplicate-ii/
+idea: use dict to save indices
+class Solution:
+    # @param {integer[]} nums
+    # @param {integer} k
+    # @return {boolean}
+    def containsNearbyDuplicate(self, nums, k):
+        numDict = dict()
+        for x in range(len(nums)):
+            idx = numDict.get(nums[x])
+            if idx >= 0 and x - idx <= k:
+                return True
+            numDict[nums[x]] = x
+        return False
+        
+discussion: the dict in python is very similar to map in java
+   
+   
+   
