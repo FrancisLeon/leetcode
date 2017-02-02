@@ -1,0 +1,61 @@
+Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
+
+You may assume that the array is non-empty and the majority element always exist in the array.
+
+Credits:
+Special thanks to @ts for adding this problem and creating all test cases.
+
+Subscribe to see which companies asked this question
+
+idea: hashmap, since it involve the frequency of a number
+
+public class Solution 
+{
+    public int majorityElement(int[] nums) 
+    {
+        int threshold = nums.length/2;
+        int majorEle = 0;
+        HashMap<Integer, Integer> map= new HashMap<Integer, Integer>();
+        for (int i=0; i < nums.length; i++)
+        {
+            // put the <k, v> into the map
+            if (map.get(nums[i]) == null)
+            map.put(nums[i],1);
+            else
+            {
+                map.put(nums[i],map.get(nums[i])+1);
+            }
+            // find the majority
+            if (map.get(nums[i]) > threshold) 
+            majorEle = nums[i];
+        }
+        return majorEle;
+    }
+}
+
+cited from: http://bookshadow.com/weblog/2014/12/22/leetcode-majority-element/
+官方解析：
+时间复杂度: O(n2) — 蛮力法: 依次检查每一个元素是否为众数
+
+时间复杂度: O(n), 空间复杂度: O(n) — 哈希表: 维护一个每一个元素出现次数的哈希表, 然后找到出现次数最多的元素
+
+时间复杂度: O(n log n) — 排序: 在排序后找出连续重复出现次数最多的元素
+
+平均时间复杂度: O(n), 最坏复杂度: 无穷大 — 随机算法: 随机选取一个元素计算其是否为众数. 如果不是, 就重复上一步骤直到找到为止。 由于选出众数的概率 > 1 / 2, 因此期望的尝试次数 < 2
+
+时间复杂度: O(n log n) — 分治法: 将数组拆成2半, 然后找出前一半的众数A和后一半的众数B。则全局众数要么是A要么是B。 如果 A == B, 则它自然而然就是全局众数。 如果不是, 则A和B都是候选众数, 则至多只需要检查这两个元素的出现次数即可。 时间复杂度, T(n) = T(n/2) + 2n = O(n log n).
+
+时间复杂度: O(n) — Moore投票算法: 我们维护一个当前的候选众数和一个初始为0的计数器。遍历数组时，我们看当前的元素x:
+
+如果计数器是0, 我们将候选众数置为 x 并将计数器置为 1
+如果计数器非0, 我们根据x与当前的候选众数是否相等对计数器+1或者-1
+一趟之后, 当前的候选众数就是所求众数. 时间复杂度 = O(n).
+时间复杂度: O(n) — 位操作法: 我们需要32次迭代, 每一次计算所有n个数的第i位的1的个数。由于众数一定存在，那么或者1的个数 > 0的个数 或者反过来(但绝不会相同)。 众数的第i位一定是计数较多数字。
+原理： e 是众数， 则 e 出现次数大于 n/2; ++++>--- 
+
+input [1, 2, 1, 0, 1]
+1st iter: x 1 cout 1
+2nd iter: x 2 cout 0
+3th iter: x 1 cout 1
+4th iter: x 0 cout 0
+5th iter: x 1 cout 1
