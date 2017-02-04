@@ -1,0 +1,122 @@
+
+
+Given numRows, generate the first numRows of Pascal's triangle.
+For example, given numRows = 5,
+Return
+
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+
+version 1:
+public class Solution 
+{
+    public List<List<Integer>> generate(int numRows) 
+    {
+        List<List<Integer>> triangle = ArrayList<List<Integer>>(); // creation in such form ??
+        ArrayList<Integer> row = ArrayList<Integer>(); // ??
+        
+        // build the triangle
+        for (int i=0; i<numRows; i++)
+        {
+            // for each row
+            for (int j=0; j<i+1; j++)
+            {
+                if (j == 0|| j == i)
+                {
+                    row.add(1); // add 1 as the first and last element in the row     
+                }
+                else // sum element j-1 and j from row i-1 to get the element j in row i  
+                {
+                    row.add(triangle.get(i-1).get(j-1)+triangle.get(i-1).get(j));
+                }
+            }
+            triangle.add(row);
+        }
+    }
+}
+problem 1: no return
+solution: add return
+
+problem 2: no "new"
+solution: 
+List<List<Integer>> triangle = new ArrayList<List<Integer>>(); // creation in such form ??
+        ArrayList<Integer> row = new ArrayList<Integer>(); // ??
+key puzzle: why create in such form;
+
+problem 3: no error input elimination
+solution: 
+// error input elimination 
+if (numRows <= 0) return triangle;
+
+version 2:
+public class Solution 
+{
+    public List<List<Integer>> generate(int numRows) 
+    {
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>(); // creation in such form ??
+        ArrayList<Integer> row = new ArrayList<Integer>(); // ??
+        
+        // error input elimination 
+        if (numRows <= 0) return triangle;
+        
+        // build the triangle
+        for (int i=0; i<numRows; i++)
+        {
+            // for each row
+            for (int j=0; j<i+1; j++)
+            {
+                if (j == 0|| j == i)
+                {
+                    row.add(1); // add 1 as the first and last element in the row     
+                }
+                else // sum element j-1 and j from row i-1 to get the element j in row i  
+                {
+                    row.add(triangle.get(i-1).get(j-1)+triangle.get(i-1).get(j));
+                }
+            }
+            triangle.add(row); // add the new row to the triangle
+        }
+        return triangle;
+    }
+}
+
+problem 4: Input: 2 Output: [[1,1,1],[1,1,1]] Expected: [[1],[1,1]]
+reason: ArrayList<Integer> row = new ArrayList<Integer>(); should be inside of the first for loop
+        ........need discussion late.
+
+version 3:
+public class Solution 
+{
+    public List<List<Integer>> generate(int numRows) 
+    {
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>(); // creation in such form ?
+        
+        // error input elimination 
+        if (numRows <= 0) return triangle;
+        
+        // build the triangle
+        for (int i=0; i<numRows; i++)
+        {
+            // for each row
+            ArrayList<Integer> row = new ArrayList<Integer>();
+            for (int j=0; j<i+1; j++)
+            {
+                if (j == 0|| j == i)
+                {
+                    row.add(1); // add 1 as the first and last element in the row     
+                }
+                else // sum element j-1 and j from row i-1 to get the element j in row i  
+                {
+                    row.add(triangle.get(i-1).get(j-1)+triangle.get(i-1).get(j));
+                }
+            }
+            triangle.add(row); // add the new row to the triangle
+        }
+        return triangle;
+    }
+}
