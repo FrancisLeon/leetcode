@@ -1,3 +1,7 @@
+/**
+ * Since we know in the search there will be some duplicate,
+ * thus, we implement the dp to swap the time with the space.
+ */
 class lc96 {
     public static int numTrees(int n) {
         int[] G = new int[n + 1];
