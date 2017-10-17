@@ -20,6 +20,12 @@ class Solution {
         return maxPath;
     }
     
+    /** 
+     * return the maxPathDown from the root, while update the maxPathSum according to the 
+     * maxPathDown of subtree.
+     * @param root the input root
+     * @return the maxPathDown of the root
+     */
     private int maxPathDown(TreeNode root) {
         if (root == null) {
             return 0;
